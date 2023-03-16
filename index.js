@@ -11,35 +11,67 @@ class TextRegExp{
     let res = text.replace(/\B'|'\B/g, '"');
     const block = document.querySelector(this.container);
     block.insertAdjacentHTML('beforeend',`<p class="new_text">${res}</p>`)
-        console.log(block);
     }
 }
 
 //const textOnPage = new TextRegExp();
 
+addEventListener("input", (e) => {
+  if(e.target.classList.contains('registration__form-input')){
+    const idInput = e.target.id;
+    if(idInput === "name"){
+      isText(e.target.value);
+    }
+    if(idInput === "email"){
+      isEmail(e.target.value);
+    }
+    if(idInput === "phone"){
+      isPhone(e.target.value);
+    }
+  }
+});
+
+const textRegex = /^[а-яА-ЯёЁa-zA-Z0-9\s-_,@"'\.]+$/;
+const isText = (val) => {
+  let isNameCorrect = textRegex.test(val);
+    if(isNameCorrect === false){
+      const block = document.getElementById("name");
+      block.classList.add('registration__error');
+      const formaBlock = document.querySelector('.registration__form-inputs');
+      const textError = `<p class="registration__error">Ошибка!</p>`;
+      formaBlock.insertAdjacentHTML('afterbegin',textError);
+    }
+    return
+};
 
 
-const formName = document.querySelector("#name")
-//const textName = formName.innerHTML;
-const checkForm = (event) =>{
-if(name.validity.typeMismatch)
-    //const idBtn = event.target;
-    console.log(textName)
+const emailRegEx =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9А-ЯЁа-яё]+\.)+[a-zA-ZА-ЯЁа-яё]{2,}))$/;
+
+  const isEmail = (val) => {
+    let isEmailCorrect = emailRegEx.test(val);
+      if(isEmailCorrect === false){
+        const block = document.getElementById("email");
+        block.classList.add('registration__error');
+        const formaBlock = document.querySelector('.registration__form-inputs');
+        const textError = `<p class="registration__error">Ошибка!</p>`;
+        formaBlock.insertAdjacentHTML('afterbegin',textError);
+      }
+      return
+  };
   
-}
 
-const btnCheck = document.querySelector("#check");
-btnCheck.addEventListener("input", checkForm);
 
-    /* document.querySelector(".registration__btn").addEventListener('click', e => {
-        if (e.target.classList.contains('check')){
-            const idBtn = e.target;
-            //let product = this.goods.find(product => product.id_product === +idBtnBuy);
-            console.log(idBtn)
-            //cart.addProduct(product);
-        }
+const phoneRegex = /^.?.?.?.?\d{3}.?.?\d{3}.?.?.?\d{2}.?.?.?\d{2}$/;
 
-/*     document.querySelector(".search-form").addEventListener('submit', e => {
-        console.log(e.target)
-        this.filter(document.querySelector('.search-field').value)
-        }); */
+const isPhone = (val) => {
+  let isPhoneCorrect = phoneRegex.test(val);
+    if(isPhoneCorrect === false){
+      const block = document.getElementById("phone");
+      block.classList.add('registration__error');
+      const formaBlock = document.querySelector('.registration__form-inputs');
+      const textError = `<p class="registration__error">Ошибка!</p>`;
+      formaBlock.insertAdjacentHTML('afterbegin',textError);
+    }
+    return
+};
