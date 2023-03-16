@@ -46,6 +46,10 @@
   text-transform: uppercase;
 }
 .registration__error {
+  display: none;
   border-color: red;
   color: red;
+}
+.has-error .registration__error {
+  display: block;
 }
