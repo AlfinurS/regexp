@@ -19,7 +19,7 @@ class TextRegExp{
 addEventListener("input", (e) => {
   if(e.target.classList.contains('registration__form-input')){
     const idInput = e.target.id;
-    isText(e.target.value, idInput);
+    validateField(e.target.value, idInput);
   }
 });
 
@@ -49,7 +49,8 @@ const validatorsMap = {
 }
 
 
-const isText = (val, key) => {
+
+const validateField = (val, key) => {
   let isFieldCorrect = validatorsMap[key](val);
     if(isFieldCorrect === false){
       const block = document.getElementById(key);
@@ -64,3 +65,31 @@ const isText = (val, key) => {
     }
     return
 };
+
+const submitForm = (e) => {
+  e.preventDefault();
+  const formElement = document.querySelector("form")
+  const formData = new FormData(formElement);
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const phone = formData.get('phone');
+  const isFieldCorrectName  = validatorsMap["name"](name);
+  const isFieldCorrectEmail = validatorsMap["email"](email);
+  const isFieldCorrectPhone = validatorsMap["phone"](phone);
+  if(isFieldCorrectName === false) {
+    return
+  }
+  if(isFieldCorrectEmail === false) {
+    return
+  }
+  if(isFieldCorrectPhone === false) {
+    return
+  }
+  console.log({
+    name,
+    email,
+    phone
+  })
+}
+
+const btnSubmit = document.getElementById('check').addEventListener('click', submitForm);
